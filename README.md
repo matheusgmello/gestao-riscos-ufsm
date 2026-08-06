@@ -6,11 +6,33 @@ Sistema web para gestão e monitoramento de riscos institucionais da UFSM, com b
 
 ## Sumário
 
+* [Rodar via Docker Compose](#rodar-via-docker-compose)
 * [Pré-requisitos](#pré-requisitos)
 * [Instalação](#instalação)
 * [Instruções de uso](#instruções-de-uso)
 * [Contato](#contato)
 * [Bibliografia](#bibliografia)
+
+## Rodar via Docker Compose
+
+Forma mais rápida de subir o sistema completo (banco, backend e frontend), útil para demonstrações. Requer apenas Docker com suporte a Compose.
+
+```bash
+git clone git@github.com:matheusgmello/gestao-riscos-ufsm.git
+cd gestao-riscos-ufsm
+docker compose up --build
+```
+
+- Frontend: `http://localhost:5173/`
+- Backend/API: `http://localhost:8000/`
+
+A cada `docker compose up`, o backend aplica as migrations e roda o `seed_apresentacao`, recriando os dados de demonstração do zero (veja credenciais em [Popular dados de apresentação](#8-popular-dados-de-apresentação-opcional)). Isso é proposital: qualquer alteração feita durante uma simulação é descartada no próximo `up`.
+
+Para encerrar:
+
+```bash
+docker compose down
+```
 
 ## Pré-requisitos
 
@@ -38,8 +60,8 @@ O projeto pode ser executado tanto em **Windows 11** quanto em **Ubuntu/Linux**,
 ### 1. Clonar o repositório
 
 ```bash
-git clone <url-do-repositorio>
-cd software-formularios-mirai-tech
+git clone git@github.com:matheusgmello/gestao-riscos-ufsm.git
+cd gestao-riscos-ufsm
 ```
 
 ### 2. Criar o ambiente virtual
@@ -114,19 +136,18 @@ python manage.py migrate
 python manage.py seed_apresentacao
 ```
 
-Limpa o banco e cria 1 administrador, 9 gestores e 6 planos de risco cobrindo todas as categorias e níveis de risco.
+Limpa o banco e cria 1 administrador, 18 gestores (2 por setor, sendo 1 `gestor_adm` e 1 `gestor`) e 9 planos de risco cobrindo todas as categorias e níveis de risco.
+
+Senha padrão para todos os usuários (administrador e gestores):
+
+```text
+12345678
+```
 
 Acesso do administrador:
 
 ```text
 SIAPE: 202512603
-Senha: 12345678
-```
-
-Senha padrão dos gestores:
-
-```text
-Sigr@2025
 ```
 
 ### 9. Instalar dependências do frontend
